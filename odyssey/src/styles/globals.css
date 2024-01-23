@@ -1,3 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+
+.mainPageBackground { 
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position:center;
+    z-Index: "-5",
+}
+
+.mainPageSignOn {
+    border-radius: 20px;
+    border: 2px #6B728E;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* padding: 100px; */
+    width: 50%;
+    height: 50%;
+    background-color: #404258;
+}
