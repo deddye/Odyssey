@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SignOn from "~/components/SignOn";
+import SignOn from "~/components/landing/SignOn";
 
 export default function Home() {
   return (
