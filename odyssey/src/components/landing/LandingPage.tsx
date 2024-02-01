@@ -6,7 +6,6 @@ export default function SignOn() {
   const [shouldLogIn, SetShouldLogIn] = useState<boolean>(false);
 
   function logInClicked() {
-    console.log("we clicked baby");
     SetShouldLogIn(true);
   }
 

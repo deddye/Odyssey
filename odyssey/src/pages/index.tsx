@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SignOn from "~/components/landing/SignOn";
+import LandingPage from "~/components/landing/LandingPage";
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
           fill={true}
         />
         <div className="mainPageSignOn">
-          <SignOn />
+          <LandingPage />
         </div>
       </div>
     </>

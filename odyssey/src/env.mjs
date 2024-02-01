@@ -10,7 +10,7 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
-    NEXT_PUBLIC_WEBSERVER_IP: z.string(),
+    NEXT_PUBLIC_SERVER: z.string(),
   },
 
   /**
@@ -18,6 +18,6 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    NEXT_PUBLIC_WEBSERVER_IP: process.env.NEXT_PUBLIC_WEBSERVER_IP,
+    NEXT_PUBLIC_SERVER: process.env.NEXT_PUBLIC_SERVER,
   },
 });

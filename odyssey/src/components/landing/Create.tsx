@@ -21,14 +21,17 @@ export default function Create() {
     setEmail(e.target.value);
   };
 
-  async function createClicked() {
-    await axios.post(`${env.NEXT_PUBLIC_WEBSERVER_IP}/createAccount`, {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-    });
-    console.log(env.NEXT_PUBLIC_WEBSERVER_IP);
-  }
+  const createClicked = () => {
+    axios
+      .post("/createAccount", {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+      })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div>
       <p className="mb-6 text-lg font-normal sm:px-16 lg:text-xl xl:px-48 dark:text-gray-200">
