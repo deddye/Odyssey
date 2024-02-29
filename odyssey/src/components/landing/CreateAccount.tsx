@@ -53,7 +53,7 @@ export default function Component() {
           <Label htmlFor="name">Name</Label>
           <Input
             id="name"
-            placeholder="Lee Robinson"
+            placeholder="Full Name"
             required
             onChange={changeName}
           />
@@ -62,7 +62,7 @@ export default function Component() {
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
-            placeholder="m@example.com"
+            placeholder="email@example.com"
             required
             onChange={changeEmail}
           />
@@ -70,6 +70,7 @@ export default function Component() {
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <Input
+            placeholder="Password"
             id="password"
             required
             type="password"

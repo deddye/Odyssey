@@ -1,8 +1,10 @@
 package routes
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/deddye/odyssey/internal/structs"
@@ -10,7 +12,13 @@ import (
 	"github.com/go-chi/cors"
 )
 
-func GetRouter() *chi.Mux {
+func GetRouter(db_url string) *chi.Mux {
+
+	db, err := sql.Open("postgres", db_url)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	r := chi.NewRouter()
 
 	r.Use(cors.Handler(cors.Options{
@@ -33,13 +41,12 @@ func GetRouter() *chi.Mux {
 
 	//POST REQUESTS
 	r.Post("/createAccount", func(w http.ResponseWriter, r *http.Request) {
-		decoder := json.NewDecoder(r.Body)
 
 		var user structs.User
 
-		err := decoder.Decode(&user)
+		err := json.NewDecoder(r.Body).Decode(&user)
 		if err != nil {
-			panic(err)
+			http.Error(w, err.Error(), http.StatusBadRequest)
 		}
 		fmt.Printf("%s - %s - %s\n", user.Name, user.Password, user.Email)
 
