@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Create from "./Create";
 import Login from "./Login";
+import CreateAccount from "./CreateAccount";
 
 export default function SignOn() {
   const [shouldLogIn, SetShouldLogIn] = useState<boolean>(false);
@@ -21,7 +22,7 @@ export default function SignOn() {
       <div style={{ textAlign: "center" }}>
         {!shouldLogIn ? (
           <div>
-            <Create />
+            <CreateAccount />
             <p>If you have an account, Click here to</p>
             <a
               className="cursor-pointer text-slate-100 hover:text-slate-500"

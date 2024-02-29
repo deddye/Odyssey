@@ -1,8 +1,11 @@
 import { type SetStateAction, useState } from "react";
 import axios from "axios";
-import { env } from "~/env.mjs";
 
+const emailRegex = new RegExp(
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+);
 export default function Create() {
+  const [emailRegexBool, setEmailRegexBool] = useState<boolean>(false);
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -18,18 +21,22 @@ export default function Create() {
   };
 
   const changeEmail = (e: { target: { value: SetStateAction<string> } }) => {
+    setEmailRegexBool(emailRegex.test(e.target.value.toString()));
     setEmail(e.target.value);
+    console.log(email);
   };
 
   const createClicked = () => {
-    axios
-      .post("/createAccount", {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-      })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+    if (emailRegexBool) {
+      axios
+        .post("/createAccount", {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+        })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -58,7 +65,17 @@ export default function Create() {
         />
         <br />
         <br />
-        <label htmlFor="email">Email</label>
+        {emailRegexBool ? (
+          <label htmlFor="email">Email</label>
+        ) : (
+          <>
+            <span>
+              <label htmlFor="email">Email </label>
+            </span>
+            <span style={{ color: "#ff0000" }}>*Input Valid Emai</span>
+          </>
+        )}
+
         <br />
         <input
           placeholder="Email"
