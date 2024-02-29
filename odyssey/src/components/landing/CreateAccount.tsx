@@ -1,7 +1,7 @@
 import { Label } from "~/components/ui/label";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import { SetStateAction, useState } from "react";
+import { type SetStateAction, useState } from "react";
 import axios from "axios";
 
 const emailRegex = new RegExp(
