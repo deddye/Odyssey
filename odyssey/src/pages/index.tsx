@@ -1,7 +1,10 @@
 import Image from "next/image";
-import LandingPage from "~/components/landing/LandingPage";
+import LoginButton from "~/components/auth/login";
+import { env } from "~/env.mjs";
 
 export default function Home() {
+  console.log(`${env.NEXT_PUBLIC_SERVER}`);
+
   return (
     <>
       <div className="mainPage">
@@ -12,7 +15,7 @@ export default function Home() {
           fill={true}
         />
         <div className="mainPageSignOn">
-          <LandingPage />
+          <LoginButton />
         </div>
       </div>
     </>
