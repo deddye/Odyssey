@@ -1,4 +1,4 @@
-import LogoutButton from "~/components/auth/logout";
+import LogoutButton from "~/components/auth/logoutButton";
 import Profile from "~/components/auth/profile";
 
 export default function Dashboard() {
