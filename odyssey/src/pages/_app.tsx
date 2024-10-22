@@ -12,7 +12,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         redirect_uri: "http://localhost:3000/dashboard",
       }}
     >
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </Auth0Provider>
   );
 };
