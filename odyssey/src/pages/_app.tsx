@@ -1,13 +1,17 @@
 import { Auth0Provider } from "@auth0/auth0-react";
 import { type AppType } from "next/dist/shared/lib/utils";
+import { env } from "~/env.mjs";
 
 import "~/styles/globals.css";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
+  const domain = `${env.NEXT_PUBLIC_OAUTH_DOMAIN}`;
+  const auth_id = `${env.NEXT_PUBLIC_OAUTH_CLIENT_ID}`;
+  console.log(`${env.NEXT_PUBLIC_SERVER}`);
   return (
     <Auth0Provider
-      domain="dev-rg5ee6jpux7o4xqb.us.auth0.com" // TODO: add these to env variables for development
-      clientId="zn5t5qNK8rkV8kivuOS0OeeDKkGompVJ"
+      domain={domain} // TODO: add these to env variables for development
+      clientId={auth_id}
       authorizationParams={{
         redirect_uri: "http://localhost:3000/dashboard",
       }}

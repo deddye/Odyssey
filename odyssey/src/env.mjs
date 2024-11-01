@@ -11,6 +11,8 @@ export const env = createEnv({
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
     NEXT_PUBLIC_SERVER: z.string(),
+    NEXT_PUBLIC_OAUTH_DOMAIN: z.string(),
+    NEXT_PUBLIC_OAUTH_CLIENT_ID: z.string()
   },
 
   /**
@@ -19,5 +21,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NEXT_PUBLIC_SERVER: process.env.NEXT_PUBLIC_SERVER,
+    NEXT_PUBLIC_OAUTH_CLIENT_ID: process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID,
+    NEXT_PUBLIC_OAUTH_DOMAIN: process.env.NEXT_PUBLIC_OAUTH_DOMAIN
   },
 });
