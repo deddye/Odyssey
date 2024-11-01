@@ -1,4 +1,18 @@
+import React from "react";
+import { useState } from "react";
+
 const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+
+  const register = async () => {
+    return;
+  };
+
   return (
     <>
       <div className="group/design-root w- dark relative flex h-2/3 flex-col overflow-x-hidden bg-[#95caf8] will-change-auto">
@@ -6,7 +20,7 @@ const Signup = () => {
           <div className="flex flex-1 justify-center px-40 py-5">
             <div className="layout-content-container flex w-[512px] max-w-[512px] max-w-[960px] flex-1 flex-col py-5">
               <h1 className="px-4 pb-3 pt-5 text-center text-[22px] font-bold leading-tight tracking-[-0.015em] text-white">
-                Sign up to learn and share your hobbies
+                Create New Account
               </h1>
               <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                 <label className="flex min-w-40 flex-1 flex-col">
@@ -14,9 +28,35 @@ const Signup = () => {
                     Email
                   </p>
                   <input
+                    type="text"
                     placeholder="example@gmail.com"
                     className="form-input flex h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl border-none bg-[#223749] p-4 text-base font-normal leading-normal text-white placeholder:text-[#90b0cb] focus:border-none focus:outline-0 focus:ring-0"
-                    value=""
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label className="flex min-w-40 flex-1 flex-col">
+                  <p className="pb-2 text-base font-medium leading-normal text-white">
+                    First Name
+                  </p>
+                  <input
+                    placeholder="First Name"
+                    className="form-input flex h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl border-none bg-[#223749] p-4 text-base font-normal leading-normal text-white placeholder:text-[#90b0cb] focus:border-none focus:outline-0 focus:ring-0"
+                    value={firstName}
+                    onChange={(e) => setFirstname(e.target.value)}
+                  />
+                </label>
+                <label className="flex min-w-40 flex-1 flex-col">
+                  <p className="pb-2 text-base font-medium leading-normal text-white">
+                    Last Name
+                  </p>
+                  <input
+                    placeholder="Last Name"
+                    className="form-input flex h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl border-none bg-[#223749] p-4 text-base font-normal leading-normal text-white placeholder:text-[#90b0cb] focus:border-none focus:outline-0 focus:ring-0"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </label>
               </div>
@@ -28,7 +68,8 @@ const Signup = () => {
                   <input
                     placeholder="username"
                     className="form-input flex h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl border-none bg-[#223749] p-4 text-base font-normal leading-normal text-white placeholder:text-[#90b0cb] focus:border-none focus:outline-0 focus:ring-0"
-                    value=""
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </label>
               </div>
@@ -38,9 +79,11 @@ const Signup = () => {
                     Password
                   </p>
                   <input
-                    placeholder="********"
+                    type="password"
+                    placeholder="password"
                     className="form-input flex h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl border-none bg-[#223749] p-4 text-base font-normal leading-normal text-white placeholder:text-[#90b0cb] focus:border-none focus:outline-0 focus:ring-0"
-                    value=""
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </label>
               </div>
@@ -50,9 +93,10 @@ const Signup = () => {
                     Confirm password
                   </p>
                   <input
-                    placeholder="********"
+                    placeholder="password"
                     className="form-input flex h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl border-none bg-[#223749] p-4 text-base font-normal leading-normal text-white placeholder:text-[#90b0cb] focus:border-none focus:outline-0 focus:ring-0"
-                    value=""
+                    value={password2}
+                    onChange={(e) => setPassword2(e.target.value)}
                   />
                 </label>
               </div>
@@ -63,14 +107,14 @@ const Signup = () => {
               </div>
             </div>
           </div>
-          <footer className="flex justify-center">
+          {/* <footer className="flex justify-center">
             <div className="flex max-w-[960px] flex-1 flex-col">
               <p className="px-4 pb-3 pt-1 text-center text-sm font-normal leading-normal text-[#90b0cb]">
                 By signing up, you agree to our Terms of Service and Privacy
                 Policy
               </p>
             </div>
-          </footer>
+          </footer> */}
         </div>
       </div>
     </>
