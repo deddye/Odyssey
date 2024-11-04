@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { supabase } from "~/supabaseClient";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +11,21 @@ const Signup = () => {
   const [password2, setPassword2] = useState("");
 
   const register = async () => {
-    return;
+    const { data, error } = await supabase.auth.signUp({
+      // TODO: need to figure out inspecting this
+      email: email,
+      password: password,
+      options: {
+        emailRedirectTo: "http://localhost:3000",
+        data: {
+          username: username,
+          first_name: firstName,
+          last_name: lastName,
+        },
+      },
+    });
+
+    if (error !== null) console.log(error.message);
   };
 
   return (
@@ -102,7 +117,9 @@ const Signup = () => {
               </div>
               <div className="flex px-4 py-3">
                 <button className="flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[#2094f3] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white">
-                  <span className="truncate">Sign Up</span>
+                  <span className="truncate" onClick={register}>
+                    Sign Up
+                  </span>
                 </button>
               </div>
             </div>

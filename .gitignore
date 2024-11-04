@@ -5,4 +5,9 @@ package-lock.json
 postgres.txt
 server/.env
 
+.env*
+*.sql
+
 ./server/bin
+
+supabase_info.txt

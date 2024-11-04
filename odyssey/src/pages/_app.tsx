@@ -10,7 +10,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   console.log(`${env.NEXT_PUBLIC_SERVER}`);
   return (
     <Auth0Provider
-      domain={domain} // TODO: add these to env variables for development
+      domain={domain}
       clientId={auth_id}
       authorizationParams={{
         redirect_uri: "http://localhost:3000/dashboard",
