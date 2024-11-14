@@ -1,8 +1,11 @@
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
-import { supabase } from "~/supabaseClient";
+import { supabase } from "~/lib/utils/supabase/supabaseClient";
 
 const Signup = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [firstName, setFirstname] = useState("");
@@ -12,11 +15,10 @@ const Signup = () => {
 
   const register = async () => {
     const { data, error } = await supabase.auth.signUp({
-      // TODO: need to figure out inspecting this
       email: email,
       password: password,
       options: {
-        emailRedirectTo: "http://localhost:3000",
+        emailRedirectTo: "http://localhost:3000/dashboard",
         data: {
           username: username,
           first_name: firstName,
@@ -25,7 +27,12 @@ const Signup = () => {
       },
     });
 
-    if (error !== null) console.log(error.message);
+    if (error !== null) {
+      console.log(error.message);
+      return;
+    }
+    console.log(data.user);
+    router.push("/dashboard");
   };
 
   return (
@@ -108,6 +115,7 @@ const Signup = () => {
                     Confirm password
                   </p>
                   <input
+                    type="password"
                     placeholder="password"
                     className="form-input flex h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl border-none bg-[#223749] p-4 text-base font-normal leading-normal text-white placeholder:text-[#90b0cb] focus:border-none focus:outline-0 focus:ring-0"
                     value={password2}
@@ -116,7 +124,10 @@ const Signup = () => {
                 </label>
               </div>
               <div className="flex px-4 py-3">
-                <button className="flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[#2094f3] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white">
+                <button
+                  className="flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[#2094f3] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white"
+                  onClick={register}
+                >
                   <span className="truncate" onClick={register}>
                     Sign Up
                   </span>
