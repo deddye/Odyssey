@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <div
-        className="group/design-root dark relative flex size-full min-h-screen flex-col overflow-x-hidden bg-[#101a23]"
+        className="group/design-root dark relative flex size-full min-h-screen flex-col overflow-x-hidden bg-[#111518]"
         style={{ fontFamily: "Be Vietnam Pro, Noto Sans, sans-serif" }}
       >
         <div className="layout-container flex h-full grow flex-col">
