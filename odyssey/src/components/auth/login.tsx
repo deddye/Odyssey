@@ -13,7 +13,7 @@ const Login = () => {
       password: password,
     });
     if (data.session) {
-      router.push("/dashboard").catch((err) => console.log(err));
+      router.push("/l/dashboard").catch((err) => console.log(err));
     }
     if (error) {
       console.log(error);
@@ -65,7 +65,7 @@ const Login = () => {
                   onClick={login}
                 >
                   <span className="truncate" onClick={login}>
-                    Sign Up
+                    Log In
                   </span>
                 </button>
               </div>

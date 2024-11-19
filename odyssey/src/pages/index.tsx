@@ -1,13 +1,10 @@
 import React from "react";
 import Login from "~/components/auth/login";
-import { env } from "~/env.mjs";
 import { useState } from "react";
 import Signup from "~/components/auth/signup";
 import Popup from "reactjs-popup";
 
 export default function Home() {
-  console.log(`${env.NEXT_PUBLIC_SERVER}`); // un-needed right now just keeping to see how to grab env variables
-
   const [isSignUpOpen, setIsSignUpOpen] = useState<boolean>(false);
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
 
