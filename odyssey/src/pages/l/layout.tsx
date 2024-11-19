@@ -7,7 +7,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const [session, setSession] = useState<Session | null>(null);
-
+  /* Having this on the layout might actually mean a session could end 
+  and a user still can access protected routes if they dont do anything 
+  to rerender the layout*/
   useEffect(() => {
     const checkAuth = async () => {
       const { data: session } = await supabase.auth.getSession();
