@@ -92,7 +92,7 @@ export default function Home() {
                 <div
                   className="@[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full aspect-video w-full rounded-xl bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: `url("https://cdn.usegalileo.ai/sdxl10/10c0bcff-aa06-446d-99e3-d86867cfb318.png")`,
+                    backgroundImage: `url("/landingbackg.webp")`,
                   }}
                 ></div>
                 <div className="@[480px]:min-w-[400px] @[480px]:gap-8 @[864px]:justify-center flex flex-col gap-6">

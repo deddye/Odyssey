@@ -32,7 +32,7 @@ const Signup = () => {
       return;
     }
     console.log(data.user);
-    router.push("/dashboard");
+    router.push("/l/dashboard");
   };
 
   return (
