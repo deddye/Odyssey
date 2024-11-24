@@ -159,7 +159,7 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <Layout>
+        <Layout pageName="Home">
           <div className="layout-content-container flex max-w-[960px] flex-1 flex-col">
             <div className="flex flex-wrap justify-between gap-3 p-4">
               <p className="min-w-72 text-4xl font-black leading-tight tracking-[-0.033em] text-white">

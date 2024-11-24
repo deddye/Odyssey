@@ -4,14 +4,7 @@ import { supabase } from "~/lib/utils/supabase/supabaseClient";
 import { useEffect, useState } from "react";
 import { followUser, unfollowUser } from "~/lib/utils/supabase/follows";
 import checkAuthentication from "~/lib/utils/supabase/authentication";
-
-interface User {
-  created_at: string;
-  first_name: string | null;
-  id: string;
-  last_name: string | null;
-  username: string | null;
-}
+import { type User } from "types/interfaces";
 
 export default function UserPage() {
   const [myId, setMyId] = useState<string | undefined>(undefined);
@@ -116,7 +109,7 @@ export default function UserPage() {
       {user === undefined ? (
         <div>Loading...</div>
       ) : (
-        <Layout>
+        <Layout pageName="Profile">
           <div className="layout-content-container flex max-w-[960px] flex-1 flex-col">
             <div className="@container flex p-4">
               <div className="@[520px]:flex-row @[520px]:justify-between @[520px]:items-center flex w-full flex-col gap-4">
@@ -136,26 +129,28 @@ export default function UserPage() {
                     </p>
                   </div>
                 </div>
-                <div className="@[480px]:w-auto flex w-full max-w-[480px] gap-3">
-                  {!isFollowingUser ? (
-                    <button
-                      className="@[480px]:flex-auto flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#283139] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white"
-                      onClick={handleFollow}
-                    >
-                      <span className="truncate">Follow</span>
+                {!myProf && (
+                  <div className="@[480px]:w-auto flex w-full max-w-[480px] gap-3">
+                    {!isFollowingUser ? (
+                      <button
+                        className="@[480px]:flex-auto flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#283139] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white"
+                        onClick={handleFollow}
+                      >
+                        <span className="truncate">Follow</span>
+                      </button>
+                    ) : (
+                      <button
+                        className="@[480px]:flex-auto flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#283139] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white"
+                        onClick={handleUnFollow}
+                      >
+                        <span className="truncate">UnFollow</span>
+                      </button>
+                    )}
+                    <button className="@[480px]:flex-auto flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#2094f3] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white">
+                      <span className="truncate">Message</span>
                     </button>
-                  ) : (
-                    <button
-                      className="@[480px]:flex-auto flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#283139] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white"
-                      onClick={handleUnFollow}
-                    >
-                      <span className="truncate">UnFollow</span>
-                    </button>
-                  )}
-                  <button className="@[480px]:flex-auto flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#2094f3] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white">
-                    <span className="truncate">Message</span>
-                  </button>
-                </div>
+                  </div>
+                )}
               </div>
             </div>
             <div className="pb-3">
