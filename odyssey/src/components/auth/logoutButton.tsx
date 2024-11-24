@@ -1,10 +1,7 @@
-import { useRouter } from "next/router";
 import React from "react";
 import { supabase } from "~/lib/utils/supabase/supabaseClient";
 
 const LogoutButton = () => {
-  const router = useRouter();
-
   async function signOut() {
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -12,7 +9,7 @@ const LogoutButton = () => {
       return;
     }
 
-    router.push("/").catch((err) => console.log(err));
+    window.location.reload();
   }
 
   return (

@@ -1,11 +1,4 @@
-import { useEffect } from "react";
-import checkAuthentication from "~/lib/utils/supabase/authentication";
-
 export default function Layout({ children }: { children: React.ReactNode }) {
-  /* Having this on the layout might actually mean a session could end 
-  and a user still can access protected routes if they dont do anything 
-  to rerender the layout*/
-
   return (
     <>
       <div className="layout-container flex h-full grow flex-col">
@@ -14,6 +7,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="flex h-full min-h-[700px] flex-col justify-between bg-[#111518] p-4">
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
+                  <div className="text-center text-white">
+                    <h1 className="text-3xl">Odyssey</h1>
+                  </div>
                   <div className="flex items-center gap-3 rounded-xl bg-[#283139] px-3 py-2">
                     <div
                       className="text-white"

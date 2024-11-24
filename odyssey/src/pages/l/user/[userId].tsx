@@ -14,9 +14,8 @@ interface User {
 }
 
 export default function UserPage() {
-  const [isAuthed, setIsAuthed] = useState(false);
-
   const [myId, setMyId] = useState<string | undefined>(undefined);
+  const [myProf, setMyProf] = useState(false); // use this to render UI for if it's your profile
 
   const userId = useParams()?.userId;
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -25,13 +24,18 @@ export default function UserPage() {
   const [isFollowingUser, setIsFollowingUser] = useState<boolean | null>(null);
 
   useEffect(() => {
-    checkAuthentication()
-      .then((_) => setIsAuthed(true))
-      .catch((err) => console.log(err));
+    checkAuthentication().catch((err) => console.log(err));
 
-    const fetchUser = async () => {
-      if (userId) {
-        const id = userId.toString();
+    // move these methods somewhere
+    const getMyUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) throw error;
+      return data.user?.id;
+    };
+
+    const fetchUser = async (uId: string | string[] | undefined) => {
+      if (uId) {
+        const id = uId.toString();
         console.log(`confirming user with id ${id}`);
 
         const { data, error } = await supabase
@@ -47,23 +51,6 @@ export default function UserPage() {
         return data;
       }
     };
-
-    fetchUser()
-      .then((res) => {
-        if (res) setUser(res);
-      })
-      .catch((err) => console.log(err));
-
-    const getMyUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (error) throw error;
-      return data.user?.id;
-    };
-
-    getMyUser()
-      .then((res) => setMyId(res))
-      .catch((error) => console.log(error));
-    //check if you are following the currently displayed user
 
     const isFollowing = async () => {
       if (userId && myId) {
@@ -82,12 +69,31 @@ export default function UserPage() {
       }
     };
 
-    isFollowing()
-      .then((res) => {
-        if (res) setIsFollowingUser(true);
-        else setIsFollowingUser(false);
-      })
-      .catch((err) => console.log(err));
+    getMyUser()
+      .then((res) => setMyId(res))
+      .catch((error) => console.log(error));
+
+    if (userId && userId.toString() === myId) {
+      setMyProf(true);
+      fetchUser(myId)
+        .then((res) => {
+          if (res) setUser(res);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      fetchUser(userId)
+        .then((res) => {
+          if (res) setUser(res);
+        })
+        .catch((err) => console.log(err));
+
+      isFollowing()
+        .then((res) => {
+          if (res) setIsFollowingUser(true);
+          else setIsFollowingUser(false);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [userId, myId]);
 
   const handleFollow = async () => {
@@ -102,7 +108,7 @@ export default function UserPage() {
 
   if (invalidPageErrorMsg) {
     console.log(invalidPageErrorMsg);
-    return <>Could not find user</>;
+    return <>User with id {userId} does not exist</>;
   }
 
   return (

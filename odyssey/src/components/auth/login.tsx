@@ -15,10 +15,11 @@ const Login = () => {
       password: password,
     });
     if (data.session) {
-      router.push("/l/dashboard").catch((err) => console.log(err));
+      router.push("/").catch((err) => console.log(err));
     }
-    setFailed(true);
     if (error) {
+      setFailed(true);
+
       console.log(error);
       return;
     }
