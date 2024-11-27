@@ -3,8 +3,7 @@ import { supabase } from "./supabaseClient";
 
 export default async function checkAuthentication() {
   const { data: session } = await supabase.auth.getSession();
-  if (!session.session) {
-    await router.push("/");
-  }
-  return session.session!.user.id;
+  if (session.session) {
+    return session.session;
+  } else await router.push("/");
 }

@@ -18,8 +18,13 @@ export default function UserPage() {
 
   useEffect(() => {
     checkAuthentication()
-      .then((res) => setMyId(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        if (res) setMyId(res.user.id);
+      })
+      .catch((err) => {
+        console.log(err);
+        setInvalidPageErrorMsg("not authenticated");
+      });
     const fetchUser = async (uId: string | string[] | undefined) => {
       if (uId) {
         const id = uId.toString();
