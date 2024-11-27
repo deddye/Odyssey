@@ -8,3 +8,5 @@ server/.env
 *.sql
 
 ./server/bin
+
+todos.txt

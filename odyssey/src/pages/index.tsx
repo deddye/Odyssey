@@ -1,28 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Login from "~/components/auth/login";
 import { useState } from "react";
 import Signup from "~/components/auth/signup";
 import Popup from "reactjs-popup";
-import { supabase } from "~/lib/utils/supabase/supabaseClient";
 import Layout from "./l/layout";
 import LogoutButton from "~/components/auth/logoutButton";
+import { useSession } from "@supabase/auth-helpers-react";
 
 export default function Home() {
   const [isSignUpOpen, setIsSignUpOpen] = useState<boolean>(false);
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
 
-  const [hasSession, setHasSession] = useState(false);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: session } = await supabase.auth.getSession();
-      if (session.session) {
-        setHasSession(true);
-      }
-    };
-
-    checkAuth().catch((err) => console.log(err));
-  });
+  const session = useSession();
 
   const toggleSignUpPopup = () => {
     setIsSignUpOpen(!isSignUpOpen);
@@ -34,7 +23,7 @@ export default function Home() {
 
   return (
     <>
-      {!hasSession ? (
+      {!session ? (
         <div className="layout-container flex h-full grow flex-col">
           <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#223749] px-10 py-3">
             <div className="flex items-center gap-4 text-white">
