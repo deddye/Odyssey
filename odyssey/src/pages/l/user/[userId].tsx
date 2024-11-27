@@ -4,11 +4,11 @@ import { supabase } from "~/lib/utils/supabase/supabaseClient";
 import { useEffect, useState } from "react";
 import { followUser, unfollowUser } from "~/lib/utils/supabase/follows";
 import { type User } from "types/interfaces";
-import { useSession } from "@supabase/auth-helpers-react";
-import router from "next/router";
+import checkAuthentication from "~/lib/utils/supabase/authentication";
 
 export default function UserPage() {
   const [myProf, setMyProf] = useState(false); // use this to render UI for if it's your profile
+  const [myId, setMyId] = useState("");
 
   const userId = useParams()?.userId;
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -16,12 +16,10 @@ export default function UserPage() {
   const [invalidPageErrorMsg, setInvalidPageErrorMsg] = useState<string>();
   const [isFollowingUser, setIsFollowingUser] = useState<boolean | null>(null);
 
-  const session = useSession();
-  const myId = session!.user.id;
-
   useEffect(() => {
-    if (!session) router.push("/").catch((err) => console.log(err));
-
+    checkAuthentication()
+      .then((res) => setMyId(res))
+      .catch((err) => console.log(err));
     const fetchUser = async (uId: string | string[] | undefined) => {
       if (uId) {
         const id = uId.toString();
@@ -79,7 +77,7 @@ export default function UserPage() {
         })
         .catch((err) => console.log(err));
     }
-  }, [userId, session, myId]);
+  }, [userId, myId]);
 
   const handleFollow = async () => {
     if (myId && userId) await followUser(myId, userId?.toString());

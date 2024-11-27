@@ -6,4 +6,5 @@ export default async function checkAuthentication() {
   if (!session.session) {
     await router.push("/");
   }
+  return session.session!.user.id;
 }
