@@ -1,9 +1,7 @@
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { supabase } from "~/lib/utils/supabase/supabaseClient";
 
 const Login = () => {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [failed, setFailed] = useState(false);
@@ -15,7 +13,7 @@ const Login = () => {
       password: password,
     });
     if (data.session) {
-      router.push("/").catch((err) => console.log(err));
+      window.location.reload();
     }
     if (error) {
       setFailed(true);

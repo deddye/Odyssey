@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { followUser, unfollowUser } from "~/lib/utils/supabase/follows";
 import { type User } from "types/interfaces";
 import checkAuthentication from "~/lib/utils/supabase/authentication";
+import ProfilePictureModal from "~/components/users/ProfilePictureModal";
 
 export default function UserPage() {
   const [myProf, setMyProf] = useState(false); // use this to render UI for if it's your profile
@@ -15,6 +16,9 @@ export default function UserPage() {
 
   const [invalidPageErrorMsg, setInvalidPageErrorMsg] = useState<string>();
   const [isFollowingUser, setIsFollowingUser] = useState<boolean | null>(null);
+
+  // State for showing parts of the page (show change profile picture)
+  const [isProfPicModalOpen, setIsProfilePicModalOpen] = useState(false);
 
   useEffect(() => {
     checkAuthentication()
@@ -109,12 +113,26 @@ export default function UserPage() {
             <div className="@container flex p-4">
               <div className="@[520px]:flex-row @[520px]:justify-between @[520px]:items-center flex w-full flex-col gap-4">
                 <div className="flex gap-4">
-                  <div
-                    className="aspect-square min-h-32 w-32 rounded-full bg-cover bg-center bg-no-repeat"
-                    style={{
-                      backgroundImage: `url("https://cdn.usegalileo.ai/stability/bb83e0f0-5455-463a-9d28-4f1c9d6172e2.png")`,
-                    }}
-                  ></div>
+                  {myProf ? (
+                    <>
+                      <div
+                        className="aspect-square min-h-32 w-32 rounded-full bg-slate-700 bg-cover bg-center bg-no-repeat"
+                        onClick={() => setIsProfilePicModalOpen(true)}
+                      ></div>
+                      <ProfilePictureModal
+                        userId={myId}
+                        open={isProfPicModalOpen}
+                        onClose={() => setIsProfilePicModalOpen(false)}
+                      />
+                    </>
+                  ) : (
+                    <div
+                      className="aspect-square min-h-32 w-32 rounded-full bg-cover bg-center bg-no-repeat"
+                      style={{
+                        backgroundImage: `url("https://cdn.usegalileo.ai/stability/bb83e0f0-5455-463a-9d28-4f1c9d6172e2.png")`,
+                      }}
+                    ></div>
+                  )}
                   <div className="flex flex-col justify-center">
                     <p className="text-[22px] font-bold leading-tight tracking-[-0.015em] text-white">
                       {user?.first_name} {user?.last_name}
