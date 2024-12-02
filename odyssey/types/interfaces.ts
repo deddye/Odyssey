@@ -4,4 +4,5 @@ export interface User {
   id: string;
   last_name: string | null;
   username: string | null;
+  profile_pic_url: string | null;
 }

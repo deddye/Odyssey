@@ -19,6 +19,9 @@ export default function UserPage() {
 
   // State for showing parts of the page (show change profile picture)
   const [isProfPicModalOpen, setIsProfilePicModalOpen] = useState(false);
+  const [profPicUrl, setProfPicUrl] = useState(
+    "https://cdn.usegalileo.ai/stability/bb83e0f0-5455-463a-9d28-4f1c9d6172e2.png",
+  );
 
   useEffect(() => {
     checkAuthentication()
@@ -29,6 +32,7 @@ export default function UserPage() {
         console.log(err);
         setInvalidPageErrorMsg("not authenticated");
       });
+
     const fetchUser = async (uId: string | string[] | undefined) => {
       if (uId) {
         const id = uId.toString();
@@ -69,13 +73,17 @@ export default function UserPage() {
       setMyProf(true);
       fetchUser(myId)
         .then((res) => {
-          if (res) setUser(res);
+          if (res) {
+            setUser(res);
+            if (res.profile_pic_url) setProfPicUrl(res.profile_pic_url);
+          }
         })
         .catch((err) => console.log(err));
     } else {
       fetchUser(userId)
         .then((res) => {
           if (res) setUser(res);
+          if (res?.profile_pic_url) setProfPicUrl(res.profile_pic_url);
         })
         .catch((err) => console.log(err));
 
@@ -86,7 +94,7 @@ export default function UserPage() {
         })
         .catch((err) => console.log(err));
     }
-  }, [userId, myId]);
+  }, [userId, myId, isProfPicModalOpen]);
 
   const handleFollow = async () => {
     if (myId && userId) await followUser(myId, userId?.toString());
@@ -116,7 +124,10 @@ export default function UserPage() {
                   {myProf ? (
                     <>
                       <div
-                        className="aspect-square min-h-32 w-32 rounded-full bg-slate-700 bg-cover bg-center bg-no-repeat"
+                        className="aspect-square min-h-32 w-32 rounded-full bg-cover bg-center bg-no-repeat"
+                        style={{
+                          backgroundImage: `url("${profPicUrl}")`,
+                        }}
                         onClick={() => setIsProfilePicModalOpen(true)}
                       ></div>
                       <ProfilePictureModal
@@ -129,7 +140,7 @@ export default function UserPage() {
                     <div
                       className="aspect-square min-h-32 w-32 rounded-full bg-cover bg-center bg-no-repeat"
                       style={{
-                        backgroundImage: `url("https://cdn.usegalileo.ai/stability/bb83e0f0-5455-463a-9d28-4f1c9d6172e2.png")`,
+                        backgroundImage: `url("${profPicUrl}")`,
                       }}
                     ></div>
                   )}

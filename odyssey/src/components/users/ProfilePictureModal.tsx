@@ -13,7 +13,6 @@ const ProfilePictureModal: React.FC<ProfilePictureModalProps> = ({
   onClose,
 }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [uploading, setUploading] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -23,24 +22,30 @@ const ProfilePictureModal: React.FC<ProfilePictureModalProps> = ({
 
   const handleUpload = async () => {
     if (selectedFile) {
-      setUploading(true);
-
       const fileName = `${userId}/${Date.now()}-${selectedFile.name}`;
-      const { error } = await supabase.storage
+      await supabase.storage
         .from("profile_pictures")
-        .upload(fileName, selectedFile);
+        .upload(fileName, selectedFile)
+        .catch((err) => {
+          onClose();
+          console.log(err);
+        });
 
       // also need to add this fileName to the profile of userId
+      const { data } = supabase.storage
+        .from("profile_pictures")
+        .getPublicUrl(fileName);
+      const { error } = await supabase
+        .from("profiles")
+        .update({ profile_pic_url: data.publicUrl })
+        .eq("id", userId);
 
-      if (error) {
-        setUploading(false);
-        onClose();
-        throw error;
-      }
+      if (error) throw error;
 
       alert("Upload successful");
       setSelectedFile(null);
     }
+
     onClose();
   };
 
@@ -84,7 +89,7 @@ const ProfilePictureModal: React.FC<ProfilePictureModalProps> = ({
                 : "cursor-not-allowed bg-gray-400"
             }`}
           >
-            {uploading ? `Uploading` : `Upload New Picture`}
+            Upload New Picture
           </button>
           <button
             onClick={handleRemove}
