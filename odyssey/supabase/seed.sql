@@ -1,0 +1,11 @@
+insert into "auth"."users"
+    (instance_id,id,aud,role,email,encrypted_password,email_confirmed_at,invited_at,confirmation_token,confirmation_sent_at,recovery_token,recovery_sent_at,email_change_token_new,email_change,email_change_sent_at,last_sign_in_at,raw_app_meta_data,raw_user_meta_data,is_super_admin,created_at,updated_at,phone,phone_confirmed_at,phone_change,phone_change_token,phone_change_sent_at,confirmed_at,email_change_token_current,email_change_confirm_status,banned_until,reauthentication_token,reauthentication_sent_at,is_sso_user,deleted_at,is_anonymous)
+values
+    ('00000000-0000-0000-0000-000000000000','06f3c4e9-5545-4dfa-8ad9-c67d0b0d776e','authenticated','authenticated','user1@test.com','$2a$10$Fglp2G.fzOGbAsptznuHDuLtVFRTd4qiudtuACjErCqFQ5MP2ffPy','2024-11-22 16:06:25.582957+00',NULL,'',NULL,'',NULL,'','',NULL,'2024-11-22 16:06:25.587814+00','{"provider": "email", "providers": ["email"]}','{"sub": "06f3c4e9-5545-4dfa-8ad9-c67d0b0d776e", "email": "user1@test.com", "username": "user1", "last_name": "one", "first_name": "user", "email_verified": false, "phone_verified": false}',NULL,'2024-11-22 16:06:25.570371+00','2024-11-22 16:06:25.594204+00',NULL,NULL,'','',NULL,DEFAULT,'',0,NULL,'',NULL,False,NULL,False),
+    ('00000000-0000-0000-0000-000000000000','8c3578e8-7618-4731-a5c9-6d0037f2a6e3','authenticated','authenticated','user2@test.com','$2a$10$yNcXhHKbwOABxFmCK3pVBuxXX8v2lBDPHNM/RIDiGl9EeqH7Uzz8m','2024-11-22 16:06:48.8926+00',NULL,'',NULL,'',NULL,'','',NULL,'2024-11-22 16:06:48.895951+00','{"provider": "email", "providers": ["email"]}','{"sub": "8c3578e8-7618-4731-a5c9-6d0037f2a6e3", "email": "user2@test.com", "username": "user2", "last_name": "two", "first_name": "user", "email_verified": false, "phone_verified": false}',NULL,'2024-11-22 16:06:48.886639+00','2024-11-22 16:06:48.897387+00',NULL,NULL,'','',NULL,DEFAULT,'',0,NULL,'',NULL,False,NULL,False);
+
+
+insert into "storage"."buckets"
+    (id, name, owner, created_at, updated_at, public, avif_autodetection, file_size_limit, allowed_mime_types, owner_id)
+values
+    ('profile_pictures', 'profile_pictures', NULL, '2024-12-01 21:56:06.168749+00', '2024-12-01 21:56:06.168749+00', True, False, NULL, '{"image/*"}', NULL)

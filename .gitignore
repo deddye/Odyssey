@@ -5,7 +5,6 @@ package-lock.json
 server/.env
 
 .env*
-*.sql
 
 ./server/bin
 
