@@ -3,7 +3,7 @@ import Login from "~/components/auth/login";
 import { useState } from "react";
 import Signup from "~/components/auth/signup";
 import Popup from "reactjs-popup";
-import Layout from "./l/layout";
+import Layout from "./layout";
 import LogoutButton from "~/components/auth/logoutButton";
 import checkAuthentication from "~/lib/utils/supabase/authentication";
 import { type Session } from "@supabase/supabase-js";
