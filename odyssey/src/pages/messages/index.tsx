@@ -9,7 +9,6 @@ import Conversation from "~/components/messages/Conversation";
 
 export default function Messages() {
   const [userId, setUserId] = useState("");
-  const [user, setUser] = useState<User | null>(null);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const router = useRouter();
 
@@ -32,31 +31,6 @@ export default function Messages() {
       setSelectedUserId(userIdFromQuery);
     }
   }, [router, router.query.user]);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (!userId) return;
-
-      try {
-        const { data, error } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", userId)
-          .single();
-
-        if (error) {
-          console.log(error);
-          return;
-        }
-
-        setUser(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    void fetchUser();
-  }, [userId]);
 
   const handleSelectConversation = (otherUserId: string) => {
     setSelectedUserId(otherUserId);
