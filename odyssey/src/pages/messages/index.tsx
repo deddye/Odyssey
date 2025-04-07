@@ -4,46 +4,95 @@ import checkAuthentication from "~/lib/utils/supabase/authentication";
 import { useRouter } from "next/router";
 import { supabase } from "~/lib/utils/supabase/supabaseClient";
 import { type User } from "types/interfaces";
+import ConversationList from "~/components/messages/ConversationList";
+import Conversation from "~/components/messages/Conversation";
 
 export default function Messages() {
   const [userId, setUserId] = useState("");
   const [user, setUser] = useState<User | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const router = useRouter();
+
   useEffect(() => {
-    checkAuthentication()
-      .then((res) => {
+    const authenticate = async () => {
+      try {
+        const res = await checkAuthentication();
         if (res) setUserId(res.user.id);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log(err);
-        router.push("/").catch((error) => console.log(error));
-      });
-
-    const fetchUser = async () => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", userId)
-        .single();
-
-      if (error) console.log(error);
-
-      return data;
+        void router.push("/");
+      }
     };
 
-    fetchUser()
-      .then((res) => {
-        if (res) setUser(res);
-      })
-      .catch((err) => console.log(err));
-  });
+    void authenticate();
+
+    // Check if there's a user query parameter to open a specific conversation
+    const userIdFromQuery = router.query.user as string;
+    if (userIdFromQuery) {
+      setSelectedUserId(userIdFromQuery);
+    }
+  }, [router, router.query.user]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!userId) return;
+
+      try {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", userId)
+          .single();
+
+        if (error) {
+          console.log(error);
+          return;
+        }
+
+        setUser(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    void fetchUser();
+  }, [userId]);
+
+  const handleSelectConversation = (otherUserId: string) => {
+    setSelectedUserId(otherUserId);
+  };
+
   return (
     <>
       <Layout pageName="Messages">
-        <div className="layout-content-container flex max-w-[960px] flex-1 flex-col ">
-          <div className="@container flex p-4">
-            <div className="@[520px]:flex-row @[520px]:justify-between @[520px]:items-center flex w-full flex-col gap-4">
-              <p className="text-white">{user?.username}</p>
+        <div className="layout-content-container flex max-w-[960px] flex-1 flex-col">
+          <div className="flex h-[calc(100vh-64px)] flex-1">
+            {/* Conversations List */}
+            <div className="w-full border-r border-[#3b4954] md:w-1/3">
+              {userId && (
+                <ConversationList
+                  userId={userId}
+                  selectedUserId={selectedUserId ?? undefined}
+                  onSelectConversation={handleSelectConversation}
+                />
+              )}
+            </div>
+
+            {/* Conversation */}
+            <div className="hidden md:flex md:w-2/3">
+              {userId && selectedUserId ? (
+                <Conversation
+                  currentUserId={userId}
+                  otherUserId={selectedUserId}
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <p className="text-center text-[#9cacba]">
+                    Select a conversation or start a new one by visiting a
+                    user&apos;s profile
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

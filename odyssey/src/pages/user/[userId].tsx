@@ -1,4 +1,5 @@
 import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
 import Layout from "../layout";
 import { supabase } from "~/lib/utils/supabase/supabaseClient";
 import { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import checkAuthentication from "~/lib/utils/supabase/authentication";
 import ProfilePictureModal from "~/components/users/ProfilePictureModal";
 
 export default function UserPage() {
+  const router = useRouter();
   const [myProf, setMyProf] = useState(false); // use this to render UI for if it's your profile
   const [myId, setMyId] = useState("");
 
@@ -170,7 +172,12 @@ export default function UserPage() {
                         <span className="truncate">UnFollow</span>
                       </button>
                     )}
-                    <button className="@[480px]:flex-auto flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#2094f3] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white">
+                    <button
+                      className="@[480px]:flex-auto flex h-10 min-w-[84px] max-w-[480px] flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-[#2094f3] px-4 text-sm font-bold leading-normal tracking-[0.015em] text-white"
+                      onClick={() =>
+                        router.push(`/messages?user=${userId?.toString()}`)
+                      }
+                    >
                       <span className="truncate">Message</span>
                     </button>
                   </div>
