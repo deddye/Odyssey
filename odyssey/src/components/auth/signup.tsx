@@ -18,7 +18,7 @@ const Signup = () => {
       email: email,
       password: password,
       options: {
-        emailRedirectTo: "http://localhost:3000/l/dashboard",
+        emailRedirectTo: "http://localhost:3000",
         data: {
           username: username,
           first_name: firstName,
@@ -32,7 +32,7 @@ const Signup = () => {
       return;
     }
     console.log(data.user);
-    router.push("/l/dashboard");
+    router.push("/");
   };
 
   return (

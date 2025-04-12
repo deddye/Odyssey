@@ -5,6 +5,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <Head>
         <title>Odyssey</title>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#111518" />
       </Head>
       <div
         className="group/design-root dark relative flex size-full min-h-screen flex-col overflow-x-hidden bg-[#111518]"

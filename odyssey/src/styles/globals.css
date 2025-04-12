@@ -1,6 +1,21 @@
 
 @tailwind base;
 
+/* Import Cassio BC font */
+
+@font-face {
+    font-family: "BC CE";
+    src: url("https://db.onlinewebfonts.com/t/c3a0fffcc940f0b6199eb7fc58c29ab3.eot");
+    src: url("https://db.onlinewebfonts.com/t/c3a0fffcc940f0b6199eb7fc58c29ab3.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/c3a0fffcc940f0b6199eb7fc58c29ab3.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/c3a0fffcc940f0b6199eb7fc58c29ab3.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/c3a0fffcc940f0b6199eb7fc58c29ab3.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/c3a0fffcc940f0b6199eb7fc58c29ab3.svg#BC CE")format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @tailwind components;
 
 @tailwind utilities;

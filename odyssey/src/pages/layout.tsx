@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { navItems } from "~/components/navigation/navItems";
 import { supabase } from "~/lib/utils/supabase/supabaseClient";
 
@@ -29,8 +30,14 @@ export default function Layout({
             <div className="flex h-full min-h-[700px] flex-col justify-between bg-[#111518] p-4">
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
-                  <div className="text-center text-white">
-                    <h1 className="text-3xl">Odyssey</h1>
+                  <div className="flex items-center justify-start gap-4 px-3 text-white">
+                    <Image
+                      src="/icons/favicon-32x32.png"
+                      alt="Odyssey Logo"
+                      width={32}
+                      height={32}
+                    />
+                    <h1 className="font-['BC CE'] text-3xl">ODYSSEY</h1>
                   </div>
 
                   {navItems(profilePath).map((item) => (
